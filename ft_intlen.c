@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_printf.h>
+#include "ft_printf.h"
 
-static int	ft_intlen(unsigned int n, int base)
+int	ft_intlen(unsigned int n, int base)
 {
 	int	i;
 

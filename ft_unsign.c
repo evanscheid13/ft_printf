@@ -12,14 +12,13 @@
 
 #include "ft_printf.h"
 
-void	ft_unsigned_fd(unsigned int n, int *t)
+void	ft_unsign(unsigned int n)
 {
     if (n < 10)
         ft_putchar(n + '0');
     else
     {
-        ft_unsigned_fd(n / 10, t);
-        ft_putchar(n % 10, t);
-        *t = += 1;
+        ft_unsign(n / 10);
+        ft_putchar(n % 10);
     }
 }

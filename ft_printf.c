@@ -9,24 +9,25 @@
 /*   Updated: 2022/11/25 19:44:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_printf.h"
 
-static int ft_is_arg(va_list *a, const char *s, int i, int j)
+static int ft_is_arg(va_list *a, const char *s, int i, int t)
 {
     t = 0;
     if (s[i + 1] == 'c')
         ft_putchar(va_arg(*a, int));
     else if (s[i + 1] == 's')
-        t = ft_putstr(va_arg(*a, char *));
+        ft_putstr(va_arg(*a, char *));
     else if (s[i + 1] == 'p')
     {
         ft_putstr("0x");
-        t = ft_hexa(va_arg(*a, long) 'x') + 2;
+        t = ft_hexa(va_arg(*a, long),'x') + 2;
     }
     else if (s[i + 1] == 'd' || s[i + 1] == 'i')
-        ft_putnbrr(va_arg(*a, int), &t);
+        ft_putnbr(va_arg(*a, int));
     else if (s[i + 1] == 'u')
-        ft_unsign(va_arg(*a, unsigned int), &t);
+        ft_unsign(va_arg(*a, unsigned int));
     else if (s[i + 1] == 'x' || s[i + 1] == 'X')
         t = ft_hexa(va_arg(*a, long), s[i + 1]);
     else if (s[i + 1] == '%')

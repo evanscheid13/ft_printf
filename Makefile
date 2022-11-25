@@ -10,42 +10,24 @@
 #                                                                              #
 # **************************************************************************** #
 
-# *****************************************************************
-CC        := cc
-CFLAGS    := -Wall -Wextra -Werror
+NAME=libftprintf.a
+CC=gcc
+CFLAGS=-Wall -Wextra -Werror
+RM=rm -f
+SRC = ft_hexa.c ft_putnbr.c ft_putstr.c ft_printf.c ft_unsign.c ft_intlen.c ft_putchar.c
+OBJ = $(SRC:.c=.o)
 
-# *****************************************************************
-RM    := rm -f
-AR    := ar rcs
-# *****************************************************************
-HEADER := ft_printf.h
-# *****************************************************************
-NAME    := libftprintf.a
-SRCS    := ft_hexa.c ft_putnbr.c ft_putstr.c ft_printf.c ft_unsign.c
+$(NAME): $(OBJ)
+		ar rcs $(NAME) $(OBJ)
 
-OBJS    := $(SRCS:.c=.o) 
-OBJS_LIBFT	:= $(SRCS_LIBFT:.c=.o)
-
-
-# *****************************************************************
-all:  $(NAME)
-
-test: 
-	@ $(CC) $(CFLAGS) main.c $(NAME) -o main
-	@ ./main
-
-$(NAME):	$(OBJS)  $(OBJS_LIBFT) 
-	@ $(AR) $(NAME) $(OBJS) $(OBJS_LIBFT)
-
-%.o: %.c
-	$(CC) $(CFLAGS) -o $@ -c $<
+all: $(NAME)
 
 clean:
-	$(RM) $(OBJS) $(OBJS_bonus) $(OBJS_LIBFT) main
+		$(RM) $(OBJ)
 
-fclean:	clean
+fclean: clean
 		$(RM) $(NAME)
 
-re:	fclean all
+re: fclean all
 
-.PHONY:	all clean fclean re
+.PHONY: clean clean
