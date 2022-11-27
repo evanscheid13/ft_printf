@@ -1,37 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf-.c                                       :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: evscheid <evscheid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/25 19:44:01 by marvin            #+#    #+#             */
-/*   Updated: 2022/11/25 19:44:01 by marvin           ###   ########.fr       */
+/*   Created: 2022/11/26 14:17:31 by evscheid          #+#    #+#             */
+/*   Updated: 2022/11/26 14:17:31 by evscheid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int ft_is_arg(va_list *a, const char *s, int i, int t)
+static int ft_is_arg(va_list a, const char *s, int i, int t)
 {
     t = 0;
     if (s[i + 1] == 'c')
-        ft_putchar(va_arg(*a, int));
+        return (ft_putchar(va_arg(a, int)));
     else if (s[i + 1] == 's')
-        ft_putstr(va_arg(*a, char *));
+        return (ft_putstr(va_arg(a, char *)));
     else if (s[i + 1] == 'p')
     {
-        ft_putstr("0x");
-        t = ft_hexa(va_arg(*a, long),'x') + 2;
+        t += ft_putstr("0x");
+        t += print_pointer(va_arg(a, unsigned long long int), "0123456789abcdef");
+        return (t);
     }
-    else if (s[i + 1] == 'd' || s[i + 1] == 'i')
-        ft_putnbr(va_arg(*a, int));
+    else if (s[i + 1] == 'd' || s[i + 1] == 'i') {
+        // ft_putnbr_base(va_arg(a, int), "0123456789");
+        return (handleint(va_arg(a, int), "0123456789"));
+    }
     else if (s[i + 1] == 'u')
-        ft_unsign(va_arg(*a, unsigned int));
-    else if (s[i + 1] == 'x' || s[i + 1] == 'X')
-        t = ft_hexa(va_arg(*a, long), s[i + 1]);
+        return (handleint(va_arg(a, unsigned int), "0123456789"));
+    else if (s[i + 1] == 'x')
+        return (print_pointer(va_arg(a, unsigned long long int), "0123456789abcdef"));
+    else if (s[i + 1] == 'X')
+        return (print_pointer(va_arg(a, unsigned long long int), "0123456789ABCDEF"));
     else if (s[i + 1] == '%')
-        ft_putchar('%');
+        return ft_putchar('%');
     else
         ft_putchar(s[i + 1]);
     return (t);
@@ -51,10 +56,9 @@ int ft_printf(const char *s, ...)
     while (s[++i])
     {
         if (s[i] == '%')
-            k += ft_is_arg(&a, s, i++, j);
+            k += ft_is_arg(a, s, i++, j);
         else
-            ft_putchar(s[i]);
-        k++;
+            k += ft_putchar(s[i]);
     }
     va_end(a);
     return (k);

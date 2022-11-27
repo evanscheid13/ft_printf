@@ -11,25 +11,35 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-int ft_hexa(unsigned int n, char c)
+int	ft_hex_len(unsigned long long int num)
 {
-    char *m;
-    char *t;
-    char *s;
+	int	len;
 
-    t = "0123456789abcdef";
-    m = "0123456789ABCDEF";
-    if (c == 'x')
-        s = t;
-    else
-        s = m;
-    if (n < 16)
-        ft_putchar(s[n]);
-    else
-    {
-        ft_hexa(n / 16, c);
-        ft_putchar(s[n % 16]);
-    }
-    return (ft_intlen(n, 16) - 1); 
+	len = 0;
+	while (num != 0)
+	{
+		len++;
+		num = num / 16;
+	}
+	return (len);
+}
+
+int ft_hexa(unsigned long long int n, char *s)
+{
+    if (n / 16)
+       ft_hexa(n / 16, s);
+    ft_putchar(s[n % 16]);
+    return (ft_hex_len(n));
+}
+
+int print_pointer(unsigned long long int n, char *base)
+{
+    if (n == 0)
+		return (ft_putchar('0'));
+	else
+		ft_hexa(n, base);
+	return (ft_hex_len(n));
 }
