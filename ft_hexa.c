@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_hexa.C                                          :+:      :+:    :+:   */
+/*   ft_hexa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: evscheid <evscheid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/25 20:21:29 by marvin            #+#    #+#             */
-/*   Updated: 2022/11/25 20:21:29 by marvin           ###   ########.fr       */
+/*   Created: 2022/11/28 22:25:33 by evscheid          #+#    #+#             */
+/*   Updated: 2022/11/28 22:25:33 by evscheid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,17 @@ int	ft_hex_len(unsigned long long int num)
 	return (len);
 }
 
-int ft_hexa(unsigned long long int n, char *s)
+int	ft_hexa(unsigned long long int n, char *s)
 {
-    if (n / 16)
-       ft_hexa(n / 16, s);
-    ft_putchar(s[n % 16]);
-    return (ft_hex_len(n));
+	if (n / 16)
+		ft_hexa(n / 16, s);
+	ft_putchar(s[n % 16]);
+	return (ft_hex_len(n));
 }
 
-int print_pointer(unsigned long long int n, char *base)
+int	print_pointer(unsigned long long int n, char *base)
 {
-    if (n == 0)
+	if (n == 0)
 		return (ft_putchar('0'));
 	else
 		ft_hexa(n, base);

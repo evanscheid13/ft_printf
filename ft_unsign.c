@@ -14,11 +14,11 @@
 
 void	ft_unsign(unsigned int n)
 {
-    if (n < 10)
-        ft_putchar(n + '0');
-    else
-    {
-        ft_unsign(n / 10);
-        ft_putchar(n % 10);
-    }
+	if (n < 10)
+		ft_putchar(n + '0');
+	else
+	{
+		ft_unsign(n / 10);
+		ft_putchar(n % 10);
+	}
 }
